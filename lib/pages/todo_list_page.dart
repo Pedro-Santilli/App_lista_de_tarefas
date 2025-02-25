@@ -13,6 +13,7 @@ class Todolistpage extends StatefulWidget {
 class _TodolistpageState extends State<Todolistpage> {
   List<Tasks> tasks = [];
   String? errorText;
+  int count = 0; // Variável para armazenar a contagem de tarefas
 
   final TextEditingController taskController = TextEditingController();
   final TaskRepository taskRepository = TaskRepository();
@@ -23,6 +24,7 @@ class _TodolistpageState extends State<Todolistpage> {
     taskRepository.getTaskList().then((value) {
       setState(() {
         tasks = value;
+        count = tasks.length; // Atualiza a contagem de tarefas
       });
     });
   }
@@ -66,6 +68,8 @@ class _TodolistpageState extends State<Todolistpage> {
                             Tasks newtask =
                                 Tasks(title: task, date: DateTime.now());
                             tasks.add(newtask);
+                            count =
+                                tasks.length; // Atualiza a contagem de tarefas
                             errorText = null;
                           },
                         );
@@ -102,7 +106,9 @@ class _TodolistpageState extends State<Todolistpage> {
                 SizedBox(height: 16),
                 Row(
                   children: [
-                    Expanded(child: Text('Você possui tarefas pendentes')),
+                    Expanded(
+                        child: Text(
+                            'Você possui $count tarefas pendentes')), // Exibe a contagem de tarefas
                     ElevatedButton(
                       onPressed: showDeleteTasks,
                       style: ElevatedButton.styleFrom(
@@ -130,6 +136,7 @@ class _TodolistpageState extends State<Todolistpage> {
   void deleteTask(Tasks task) {
     setState(() {
       tasks.remove(task);
+      count = tasks.length; // Atualiza a contagem de tarefas
     });
     taskRepository.saveTaskList(tasks);
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -141,6 +148,7 @@ class _TodolistpageState extends State<Todolistpage> {
           onPressed: () {
             setState(() {
               tasks.add(task);
+              count = tasks.length; // Atualiza a contagem de tarefas
             });
             taskRepository.saveTaskList(tasks);
           },
@@ -185,6 +193,7 @@ class _TodolistpageState extends State<Todolistpage> {
   void cleartasks() {
     setState(() {
       tasks.clear();
+      count = tasks.length; // Atualiza a contagem de tarefas
     });
     taskRepository.saveTaskList(tasks);
   }
