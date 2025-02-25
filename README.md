@@ -26,8 +26,15 @@ Este é um aplicativo de lista de tarefas desenvolvido em Flutter. O aplicativo 
    ```sh
    git clone <URL_DO_REPOSITORIO>
 3. Navegue até o diretório do projeto:
+   ```sh
    cd lista_de_tarefas
 4. Instale as dependências:
+   ```sh
    flutter pub get
 5. Execute o aplicativo:
+   ```sh
    flutter run
+## Uso 
+Para adicionar uma nova tarefa, digite o texto da tarefa no campo de texto e clique no botão de adicionar (ícone de mais).
+Para excluir uma tarefa, deslize o item da lista para a esquerda e clique no botão de excluir.
+Para limpar todas as tarefas, clique no botão "Limpar Tudo".
